@@ -1,6 +1,5 @@
 package com.cos.security1.controller;
 
-import com.cos.security1.models.Role;
 import com.cos.security1.models.User;
 import com.cos.security1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class IndexController {
     @PostMapping("/join")
     public String join(User user){
         System.out.println(user);
-        user.setRole(Role.USER);
+        user.setRole("ROLE_USER");
         String rawPassword = user.getPassword();
         String encPassowrd = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassowrd);

@@ -3,10 +3,7 @@ package com.cos.security1.models;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -18,12 +15,9 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Role role;
+    private String role;
 
     @CreationTimestamp
     private Timestamp createDate;
 
-    public void setRole(Role role){
-        this.role=role;
-    }
 }
