@@ -1,12 +1,23 @@
 package com.cos.security1.controller;
 
-import org.springframework.security.core.parameters.P;
+import com.cos.security1.models.Role;
+import com.cos.security1.models.User;
+import com.cos.security1.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    private  UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //localhost:8080/
     //localhost:8080
@@ -34,19 +45,25 @@ public class IndexController {
     }
 
     //securityConfig 파일 생성 후 생성 전의 로그인페이지 동작안함.
-    @GetMapping("/login")
-    public @ResponseBody String login(){
-        return "login";
+    @GetMapping("/loginForm")
+    public String loginForm(){
+        return "loginForm";
     }
 
-    @GetMapping("/join")
-    public @ResponseBody String join(){
-        return "join";
+    @GetMapping("/joinForm")
+    public String joinForm(){
+        return "joinForm";
     }
     
-    @GetMapping("/joinProc")
-    public @ResponseBody String joinProc(){
-        return "회원가입 완료";
+    @PostMapping("/join")
+    public String join(User user){
+        System.out.println(user);
+        user.setRole(Role.USER);
+        String rawPassword = user.getPassword();
+        String encPassowrd = bCryptPasswordEncoder.encode(rawPassword);
+        user.setPassword(encPassowrd);
+        userRepository.save(user);
+        return "redirect:/loginForm";
     }
 
 

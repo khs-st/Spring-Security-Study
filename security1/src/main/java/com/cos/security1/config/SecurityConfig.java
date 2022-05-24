@@ -1,13 +1,21 @@
 package com.cos.security1.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity //spring security 필터가 spring 필터 체인에 등록된다.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    
+    // 해당 메서드의 return 오브젝트를 IoC로 등록해준다.
+    @Bean
+    public BCryptPasswordEncoder encodPwd(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -21,6 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //아래 추가 후에는 위의 3가지 주소 모두 로그인으로 이동
                 .formLogin()
-                .loginPage("/login");
+                .loginPage("/loginForm");
     }
 }
