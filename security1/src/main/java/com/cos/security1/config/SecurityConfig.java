@@ -22,18 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 //아래 3가지 주소가 아니면 누구나 접근가능하도록 설정
-                .antMatchers("/user/**").authenticated() // 인증만 된다면 접속 가능한 주소
+                .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 //아래 추가 후에는 위의 3가지 주소 모두 로그인으로 이동
                 .formLogin()
-                .loginPage("/loginForm")
-                // username 파라미터 변환 -> 로그인폼 name값과 다른 변수라면
-                // PrincipalDetailsService의 String username를 받아오게 하기 위한 설정
-                .usernameParameter("username")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/"); // login 주소가 호출 되면 시큐리티가 가로채서 로그인 진행한다.
+                .loginPage("/loginForm");
     }
 }
