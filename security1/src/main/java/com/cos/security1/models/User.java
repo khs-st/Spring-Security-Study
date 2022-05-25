@@ -17,6 +17,10 @@ public class User {
     private String email;
     private String role;
 
+    // 구글 정보 provider: "google", providerId: "google 에서 가져온 username"
+    private String provider;
+    private String providerId;
+
     @CreationTimestamp
     private Timestamp createDate;
 
