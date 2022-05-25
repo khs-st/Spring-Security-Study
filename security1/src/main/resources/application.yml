@@ -22,7 +22,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create #create update none
+      ddl-auto: update #create update none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
+            client-id: 915859931027-f8s03or3cdtb3sf7efj1r0n50eacd8v9.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile

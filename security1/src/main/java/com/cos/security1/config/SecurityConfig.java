@@ -36,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // PrincipalDetailsService의 String username를 받아오게 하기 위한 설정
                 .usernameParameter("username")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/"); // login 주소가 호출 되면 시큐리티가 가로채서 로그인 진행한다.
+                .defaultSuccessUrl("/") // login 주소가 호출 되면 시큐리티가 가로채서 로그인 진행한다.
+                .and()
+                .oauth2Login()
+                .loginPage("/loginForm"); // 구글 로그인 완료 후 처리가 필요함
     }
 }
