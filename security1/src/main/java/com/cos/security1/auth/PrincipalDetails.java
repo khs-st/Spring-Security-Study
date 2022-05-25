@@ -1,11 +1,14 @@
 package com.cos.security1.auth;
 
 import com.cos.security1.models.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 // 시큐리티가 /login 주소 요청오면 가로채서 로그인 진행한다.
 // 로그인 진행이 완료 되면 시큐리티 session을 만들어준다. (Security ContexHolder)
@@ -15,13 +18,15 @@ import java.util.Collection;
 // Security Session -> Authentication -> UserDetails(PrincipalDetails)
 // 나중에 User 오브젝트에 접근하려면 Security Session 에서 정보 꺼내야한다.
 
-public class PrincipalDetails implements UserDetails {
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user; // 컴포지션
 
     public PrincipalDetails(User user){
         this.user=user;
     }
+
 
     // 해당 User의 권한을 return 하는 곳이다.
     @Override
@@ -69,5 +74,15 @@ public class PrincipalDetails implements UserDetails {
         // 현재시간 - 로그인시간을 계산하여 true 나 false 반환하여 처리한다.
         
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }
