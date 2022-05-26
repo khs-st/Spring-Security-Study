@@ -13,7 +13,9 @@ spring:
     url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
-
+    #https://programmer.ink/think/springboot2.6.x-countermeasures-after-disabling-circular-dependency-by-default.html
+  main:
+    allow-circular-references: true
 # viewResolver mustache 선언 생략 가능 -> 의존성 주입 되어있기 때문
 #  mvc:
 #    view:

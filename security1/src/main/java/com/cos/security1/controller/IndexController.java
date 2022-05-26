@@ -64,9 +64,11 @@ public class IndexController {
         //viewResolver 설정이 application.yml에 되어있음
         return "index";
     }
-    
+
+    //일반 로그인, 구글 로그인 둘 다 정보 읽어 올 수 있다.
     @GetMapping("/user")
-    public @ResponseBody String user(){
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("principalDetails : " + principalDetails.getUser());
         return "user";
     }
     
